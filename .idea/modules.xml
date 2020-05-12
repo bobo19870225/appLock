@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/appLock.iml" filepath="$PROJECT_DIR$/appLock.iml" group="appLock" />
+      <module fileurl="file://$PROJECT_DIR$/applock/applock.iml" filepath="$PROJECT_DIR$/applock/applock.iml" group="appLock/applock" />
+    </modules>
+  </component>
+</project>

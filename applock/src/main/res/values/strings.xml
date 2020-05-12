@@ -1,0 +1,45 @@
+<resources>
+
+    <string name="app_name">应用锁</string>
+    <string name="title_bar_main">应用锁</string>
+    <string name="title_bar_createpwd">创建密码</string>
+
+    <!-- 图形解锁控件相关 -->
+    <string name="lockscreen_access_pattern_cell_added">已添加单元格</string>
+    <string name="lockscreen_access_pattern_start">绘制解锁图案</string>
+    <string name="lockscreen_access_pattern_detected">密码已保存</string>
+    <string name="lockscreen_access_pattern_cleared">密码已删除</string>
+    <string name="lock_recording_intro_header">设置应用程序的解锁密码</string>
+    <string name="lock_settings_help_how_to_record">如何绘制解锁图案</string>
+    <string name="lock_recording_incorrect_too_short">应连接至少4个点。</string>
+    <string name="lock_pattern_entered_header">记录密码</string>
+    <string name="lock_need_to_confirm">再次绘制图案以确认</string>
+    <string name="lock_need_to_unlock_wrong">密码不匹配，请重试。</string>
+    <string name="password_gestrue_tips">绘制密码解锁</string>
+    <string name="password_error_count">密码不匹配</string>
+    <string name="lock_draw_unlock_pattern">画出解锁路径</string>
+    <string name="lock_enter_pin_code">输入数字密码</string>
+    <string name="lock_pattern_confirmed_header"></string>
+    <string name="dialog_tip">你的系统大于等于5.0，我们需要获取 “查看应用使用情况” 权限</string>
+    <string name="login_username">手机号码</string>
+    <string name="login_pwd">密码</string>
+    <string name="login_submit">安全登录</string>
+    <string name="login_sms">短信验证码登录</string>
+    <string name="login_findpwd">忘记密码</string>
+    <string name="login_reg">新用户注册</string>
+    <string name="login_remember">记住我</string>
+    <string name="reg_phone_11">11位数的手机号码</string>
+    <string name="reg_cb_accept">我同意</string>
+    <string name="reg_order">系统使用协议</string>
+    <string name="reg_verify_phone">发送验证码</string>
+    <string name="reg_verify_code">收到的验证码</string>
+    <string name="reg_verify_pwd">设置一个密码</string>
+    <string name="reg_verify_redo">重新获取验证码</string>
+    <string name="reg_verify_submit">提交</string>
+    <string name="page_login">用户登录</string>
+    <string name="page_get_code">请求验证码</string>
+    <string name="page_login_bycode">注册/验证码确认-密码</string>
+    <string name="page_login_findpwd">找回密码/验证码确认-密码</string>
+    <string name="page_about">关于</string>
+
+</resources>
