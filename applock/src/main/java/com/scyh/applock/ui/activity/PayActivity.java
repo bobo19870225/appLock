@@ -32,10 +32,10 @@ public class PayActivity extends Activity {
 				try {
 					jiemi = DESHelper.decryptBasedDes(result, AppConfig.INIT_PASSWORD_RC4);
 					System.out.println("解密后：" + jiemi);
-					Intent intent = new Intent(PayActivity.this, ScPayActivityImpl.class);
-					intent.putExtra("json_price", jiemi);
-					// startActivity(intent);
-					startActivityForResult(intent, 38);
+//					Intent intent = new Intent(PayActivity.this, ScPayActivityImpl.class);
+//					intent.putExtra("json_price", jiemi);
+//					// startActivity(intent);
+//					startActivityForResult(intent, 38);
 					PayActivity.this.finish();
 				} catch (Exception e) {
 					e.printStackTrace();

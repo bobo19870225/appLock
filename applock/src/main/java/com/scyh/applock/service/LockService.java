@@ -1,38 +1,40 @@
 package com.scyh.applock.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.scyh.applock.AppConstants;
-import com.scyh.applock.R;
-import com.scyh.applock.db.CommLockInfoManager;
-import com.scyh.applock.receiver.LauncherServiceBroadcastReceiver;
-import com.scyh.applock.task.RecycleTask;
-import com.scyh.applock.ui.activity.GestureUnlockAppActivity;
-import com.scyh.applock.ui.activity.MainActivity;
-import com.scyh.applock.utils.Logger;
-import com.scyh.applock.utils.SpUtil;
-
 import android.app.ActivityManager;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.app.job.JobInfo;
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.os.RemoteException;
 import android.text.TextUtils;
-import android.util.Log;
+
+import com.scyh.applock.AppConstants;
+import com.scyh.applock.R;
+import com.scyh.applock.db.CommLockInfoManager;
+import com.scyh.applock.task.RecycleTask;
+import com.scyh.applock.ui.activity.GestureUnlockAppActivity;
+import com.scyh.applock.ui.activity.MainActivity;
+import com.scyh.applock.utils.Logger;
+import com.scyh.applock.utils.ServiceUtils;
+import com.scyh.applock.utils.SpUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LockService extends IntentService {
 	public LockService() {
@@ -56,6 +58,8 @@ public class LockService extends IntentService {
 	private String lastUnlockPackageName = ""; // 最后解锁的程序包名
 
 	private boolean lockState;
+	private MyConn conn;
+	private MyBinder binder;
 
 	private ServiceReceiver mServiceReceiver;
 	private CommLockInfoManager mLockInfoManager;
@@ -82,6 +86,14 @@ public class LockService extends IntentService {
 		}
 
 	};
+
+	static class MyBinder extends IMyAidlInterface.Stub {
+		@Override
+		public String getServiceName() throws RemoteException {
+			return LocalService.class.getSimpleName();
+		}
+	}
+
 //	LauncherServiceBroadcastReceiver mScreenStatusReceiver;
 //	private void registSreenStatusReceiver() {  
 //	    mScreenStatusReceiver = new LauncherServiceBroadcastReceiver();    
@@ -94,6 +106,7 @@ public class LockService extends IntentService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		conn = new MyConn();
 		instance = this;
 		lockState = SpUtil.getInstance().getBoolean(AppConstants.LOCK_STATE);
 		lockState = true;
@@ -126,6 +139,10 @@ public class LockService extends IntentService {
 	}
 
 	@Override
+	public IBinder onBind(Intent intent) {
+		return binder;
+	}
+	@Override
 	protected void onHandleIntent(Intent intent) {
 		Logger.e("fxq", "---service------onHandleIntent");
 		// checkData();
@@ -155,9 +172,9 @@ public class LockService extends IntentService {
 		recycleThread.start();
 		
 		Notification notification = new Notification(R.drawable.ic_launcher, "应用锁已经启动", System.currentTimeMillis());  
-        Intent notificationIntent = new Intent(this, MainActivity.class);  
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);  
-             notification.setLatestEventInfo(this, "应用锁", "应用锁持续为您守护...", pendingIntent);  
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+//             notification.setLatestEventInfo(this, "应用锁", "应用锁持续为您守护...", pendingIntent);
              startForeground(1, notification);
 //		return super.onStartCommand(intent, flags, startId);
 		
@@ -485,5 +502,21 @@ public class LockService extends IntentService {
 		threadIsTerminate = false;
 		unregisterReceiver(mServiceReceiver);
 //		unregisterReceiver(mScreenStatusReceiver);
+	}
+
+	class MyConn implements ServiceConnection {
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			ServiceUtils.startLockService(LockService.this);
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			//  Toast.makeText(LocalService.this, "远程服务killed", Toast.LENGTH_SHORT).show();
+			//开启远程服务
+			LockService.this.startService(new Intent(LockService.this, RomoteService.class));
+			//绑定远程服务
+			LockService.this.bindService(new Intent(LockService.this, RomoteService.class), conn, Context.BIND_IMPORTANT);
+		}
 	}
 }

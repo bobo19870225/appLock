@@ -24,8 +24,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
+//import cn.smssdk.EventHandler;
+//import cn.smssdk.SMSSDK;
 
 public class RegisterConfirmActivity extends BaseNavigatActivity implements OnClickListener {
 
@@ -110,32 +110,32 @@ public class RegisterConfirmActivity extends BaseNavigatActivity implements OnCl
 
 		phone = getIntent().getStringExtra("tel");
 
-		SMSSDK.registerEventHandler(new EventHandler() {
-
-			@Override
-			public void afterEvent(int event, int result, Object data) {
-				if (data instanceof Throwable) {
-					Throwable throwable = (Throwable) data;
-					// String msg = throwable.getMessage();
-					// System.out.println("错误消息："+msg);
-					Message msg = handler.obtainMessage(MSG_CODE_ERROR);
-					msg.obj = throwable.getMessage();
-					handler.sendMessage(msg);
-				} else {
-					if (event == 3) {
-						handler.sendEmptyMessage(MSG_CODE_VALID_OK);
-					} else if (event == 2) {
-						handler.sendEmptyMessage(MSG_CODE_SEND);
-
-					} else {
-						Message msg = handler.obtainMessage(MSG_CODE_ERROR);
-						msg.obj = data.toString();
-						handler.sendMessage(msg);
-						Logger.dft("err:" + data.toString());
-					}
-				}
-			}
-		});
+//		SMSSDK.registerEventHandler(new EventHandler() {
+//
+//			@Override
+//			public void afterEvent(int event, int result, Object data) {
+//				if (data instanceof Throwable) {
+//					Throwable throwable = (Throwable) data;
+//					// String msg = throwable.getMessage();
+//					// System.out.println("错误消息："+msg);
+//					Message msg = handler.obtainMessage(MSG_CODE_ERROR);
+//					msg.obj = throwable.getMessage();
+//					handler.sendMessage(msg);
+//				} else {
+//					if (event == 3) {
+//						handler.sendEmptyMessage(MSG_CODE_VALID_OK);
+//					} else if (event == 2) {
+//						handler.sendEmptyMessage(MSG_CODE_SEND);
+//
+//					} else {
+//						Message msg = handler.obtainMessage(MSG_CODE_ERROR);
+//						msg.obj = data.toString();
+//						handler.sendMessage(msg);
+//						Logger.dft("err:" + data.toString());
+//					}
+//				}
+//			}
+//		});
 		mTimeCount.start();
 	}
 
@@ -172,7 +172,7 @@ public class RegisterConfirmActivity extends BaseNavigatActivity implements OnCl
 //			reg_execute("13368609001", "123456");
 			break;
 		case R.id.tv_reg_code_again:
-			SMSSDK.getVerificationCode("86", phone);
+//			SMSSDK.getVerificationCode("86", phone);
 			mTimeCount.cancel();
 			mTimeCount.start();
 			break;
@@ -189,7 +189,7 @@ public class RegisterConfirmActivity extends BaseNavigatActivity implements OnCl
 		}
 
 		code = mEditText_Code.getText().toString().trim();
-		SMSSDK.submitVerificationCode("86", phone, code);
+//		SMSSDK.submitVerificationCode("86", phone, code);
 
 	}
 

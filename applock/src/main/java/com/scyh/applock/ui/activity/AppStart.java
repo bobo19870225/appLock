@@ -1,21 +1,20 @@
 package com.scyh.applock.ui.activity;
 
-import com.scyh.applock.utils.LockPatternUtils;
-
 import android.content.Intent;
 import android.os.Bundle;
 
-public class AppStart extends BaseActivity {
+import cn.gz3create.scyh_account.ScyhAccountUtils;
 
-	private LockPatternUtils fingerUtils;
+public class AppStart extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		
-		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
+
+//		Intent intet = new Intent(this, LoginActivity.class);
+//		startActivity(intent);
+		ScyhAccountUtils.getInstance(getApplicationContext()).login(this, 334, "ziji");
 //		fingerUtils = new LockPatternUtils(this);
 //		if (fingerUtils.savedPatternExists()) {
 //			Intent intent = new Intent(this, LoginActivity.class);
@@ -26,4 +25,22 @@ public class AppStart extends BaseActivity {
 //		}
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		ScyhAccountUtils.getInstance(getApplicationContext()).onLoginCallback(new ScyhAccountUtils.ILoginCallback() {
+			@Override
+			public void success() {
+				Intent intet1 = new Intent(AppStart.this, MainActivity.class);
+				startActivity(intet1);
+				AppStart.this.finish();
+			}
+
+			@Override
+			public void failed() {
+
+			}
+		}, 334, requestCode, resultCode, data);
+
+	}
 }

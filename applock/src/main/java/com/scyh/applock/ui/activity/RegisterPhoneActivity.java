@@ -1,8 +1,5 @@
 package com.scyh.applock.ui.activity;
 
-import com.scyh.applock.R;
-import com.scyh.applock.utils.AppUtil;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,7 +7,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import cn.smssdk.SMSSDK;
+
+import com.scyh.applock.R;
+import com.scyh.applock.utils.AppUtil;
+//import cn.smssdk.SMSSDK;
 
 public class RegisterPhoneActivity extends BaseNavigatActivity{
 	
@@ -54,9 +54,9 @@ public class RegisterPhoneActivity extends BaseNavigatActivity{
 			AppUtil.toast("手机号码不正确");
 			return ;
 		}
-		
-		SMSSDK.setAskPermisionOnReadContact(true);
-		SMSSDK.getVerificationCode("86",phone);
+
+//		SMSSDK.setAskPermisionOnReadContact(true);
+//		SMSSDK.getVerificationCode("86",phone);
 		
 		Intent intent=new Intent(this,RegisterConfirmActivity.class);
 		intent.putExtra("tel", phone);

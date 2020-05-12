@@ -26,7 +26,7 @@ public class LocalService extends Service {
         conn = new MyConn();
     }
 
-    class MyBinder extends IMyAidlInterface.Stub {
+    static class MyBinder extends IMyAidlInterface.Stub {
         @Override
         public String getServiceName() throws RemoteException {
             return LocalService.class.getSimpleName();

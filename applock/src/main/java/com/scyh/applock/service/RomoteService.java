@@ -30,12 +30,12 @@ public class RomoteService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
       //  Toast.makeText(this, " 远程服务started", Toast.LENGTH_SHORT).show();
-        this.bindService(new Intent(this, LocalService.class), conn, Context.BIND_IMPORTANT);
+        this.bindService(new Intent(this, LockService.class), conn, Context.BIND_IMPORTANT);
 
         return START_STICKY;
     }
 
-    class MyBinder extends IMyAidlInterface.Stub {
+    static class MyBinder extends IMyAidlInterface.Stub {
         @Override
         public String getServiceName() throws RemoteException {
             return RomoteService.class.getSimpleName();
@@ -55,9 +55,9 @@ public class RomoteService extends Service {
           //  Toast.makeText(RomoteService.this, "本地服务killed", Toast.LENGTH_SHORT).show();
 
             //开启本地服务
-            RomoteService.this.startService(new Intent(RomoteService.this, LocalService.class));
+            RomoteService.this.startService(new Intent(RomoteService.this, LockService.class));
             //绑定本地服务
-            RomoteService.this.bindService(new Intent(RomoteService.this, LocalService.class), conn, Context.BIND_IMPORTANT);
+            RomoteService.this.bindService(new Intent(RomoteService.this, LockService.class), conn, Context.BIND_IMPORTANT);
         }
 
     }
