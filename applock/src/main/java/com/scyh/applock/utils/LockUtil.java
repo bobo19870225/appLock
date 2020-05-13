@@ -28,6 +28,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import cn.smssdk.SMSSDK;
+
 /**
  * Created by xian on 2017/2/17.
  */
@@ -180,7 +182,6 @@ public class LockUtil {
     public static void goHome(Activity activity) {
         Intent homeIntent = new Intent(Intent.ACTION_MAIN);
         homeIntent.addCategory(Intent.CATEGORY_HOME);
-     
         activity.startActivity(homeIntent);
         activity.finish();
     }

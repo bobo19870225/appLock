@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.scyh.applock.AppContext;
+import com.scyh.applock.AppManager;
 import com.scyh.applock.R;
 import com.scyh.applock.db.CommLockInfoManager;
 import com.scyh.applock.service.LockService;
@@ -183,9 +184,19 @@ public class SetActivity extends BaseNavigatActivity {
 	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode!=Activity.RESULT_OK){
+		ScyhAccountLib.getInstance().onUserCenterCallback(new ScyhAccountLib.IUserCenterCallback() {
+			@Override
+			public void onLogout() {//退出
+				AppManager.getAppManager().AppExit(SetActivity.this);
+			}
+
+			@Override
+			public void onUnregister() {
+
+			}
+		}, 111, requestCode, resultCode, data);
+		if (resultCode == Activity.RESULT_OK) {
 			return ;
 		}
 		if(requestCode==5){
@@ -194,17 +205,7 @@ public class SetActivity extends BaseNavigatActivity {
 			finish();
 			AppUtil.toast("给应用加锁吧");
 		}
-		ScyhAccountLib.getInstance().onUserCenterCallback(new ScyhAccountLib.IUserCenterCallback() {
-			@Override
-			public void onLogout() {//退出
 
-			}
-
-			@Override
-			public void onUnregister() {
-
-			}
-		}, 111, requestCode, resultCode, data);
 
 	}
 	
