@@ -1,14 +1,5 @@
 package com.scyh.applock.ui.activity;
 
-import com.scyh.applock.AppContext;
-import com.scyh.applock.R;
-import com.scyh.applock.db.CommLockInfoManager;
-import com.scyh.applock.service.LockService;
-import com.scyh.applock.utils.AppUtil;
-import com.scyh.applock.utils.LockPatternUtils;
-import com.scyh.applock.utils.ServiceUtils;
-import com.scyh.applock.utils.VipUtils;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +13,18 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.scyh.applock.AppContext;
+import com.scyh.applock.R;
+import com.scyh.applock.db.CommLockInfoManager;
+import com.scyh.applock.service.LockService;
+import com.scyh.applock.utils.AppUtil;
+import com.scyh.applock.utils.LockPatternUtils;
+import com.scyh.applock.utils.ServiceUtils;
+import com.scyh.applock.utils.VipUtils;
+
+import cn.gz3create.scyh_account.ScyhAccountLib;
+import cn.gz3create.scyh_account.utils.LibProduct;
 
 public class SetActivity extends BaseNavigatActivity {
 
@@ -74,6 +77,12 @@ public class SetActivity extends BaseNavigatActivity {
 		tv_user.setText(AppContext.getInstance().getCurrentUser());
 		lockUtils=new LockPatternUtils(this);
 		tv_service_open=(TextView) findViewById(R.id.tv_service_open);
+		findViewById(R.id.rl_user).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ScyhAccountLib.getInstance().userCenter(SetActivity.this, 111, LibProduct.AppLock.APPID);
+			}
+		});
 		if (VipUtils.validVip()) {
 			iv_vip.setBackground(getResources().getDrawable(R.drawable.golden_crown));
 			String v_end = sp.getString("vip_endtime", "");
@@ -185,6 +194,18 @@ public class SetActivity extends BaseNavigatActivity {
 			finish();
 			AppUtil.toast("给应用加锁吧");
 		}
+		ScyhAccountLib.getInstance().onUserCenterCallback(new ScyhAccountLib.IUserCenterCallback() {
+			@Override
+			public void onLogout() {//退出
+
+			}
+
+			@Override
+			public void onUnregister() {
+
+			}
+		}, 111, requestCode, resultCode, data);
+
 	}
 	
 }

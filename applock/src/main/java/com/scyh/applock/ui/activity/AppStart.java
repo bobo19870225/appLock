@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import cn.gz3create.scyh_account.ScyhAccountLib;
+import cn.gz3create.scyh_account.utils.LibProduct;
 
 public class AppStart extends BaseActivity {
 
@@ -14,7 +15,7 @@ public class AppStart extends BaseActivity {
 
 //		Intent intet = new Intent(this, LoginActivity.class);
 //		startActivity(intent);
-		ScyhAccountLib.getInstance().login(this, 334, "ziji");
+		ScyhAccountLib.getInstance().login(this, 334, LibProduct.AppLock.APPID);
 //		fingerUtils = new LockPatternUtils(this);
 //		if (fingerUtils.savedPatternExists()) {
 //			Intent intent = new Intent(this, LoginActivity.class);

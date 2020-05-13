@@ -10,6 +10,7 @@
         layout="@layout/navigate_titlebar" />
 
     <LinearLayout
+        android:id="@+id/rl_user"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"

@@ -3,6 +3,8 @@ package com.scyh.applock.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -50,6 +52,20 @@ public class MainActivity extends BaseNavigatActivity implements LockMainContrac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //浮框权限
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+//            Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, 0);
+        } else {
+            init();
+        }
+
+    }
+
+    private void init() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         initNavigatView(findViewById(R.id.navigat_toolbar));
@@ -78,15 +94,15 @@ public class MainActivity extends BaseNavigatActivity implements LockMainContrac
             myShowDialog();
         }
 //		ServiceUtils.startLockService(this);
-		if(sp.getBoolean(TAG_SERVICE_APP, false)){
+        if (sp.getBoolean(TAG_SERVICE_APP, false)) {
 //			if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
 //				startForegroundService(new Intent(this, LockService.class));
 //			}else {
             startService(new Intent(this, LockService.class));
 //			}
-		}
+        }
 //		startService(new Intent(this,LeftService.class));
-        startService(new Intent(this, RomoteService.class));
+//        startService(new Intent(this, RomoteService.class));
         setServer();
     }
 
@@ -101,6 +117,7 @@ public class MainActivity extends BaseNavigatActivity implements LockMainContrac
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
+
         LockPatternUtils util = new LockPatternUtils(getApplicationContext());
         if (count != 0 || !util.hasPassword()) {
             count = 0;
@@ -135,7 +152,16 @@ public class MainActivity extends BaseNavigatActivity implements LockMainContrac
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_ACTION_USAGE_ACCESS_SETTINGS) {
+        if (requestCode == 0) {
+            if (!Settings.canDrawOverlays(this)) {
+                Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
+                init();
+            }
+
+        } else if (requestCode == RESULT_ACTION_USAGE_ACCESS_SETTINGS) {
             if (LockUtil.isStatAccessPermissionSet(this)) {
                 LockPatternUtils util = new LockPatternUtils(getApplicationContext());
                 if (!util.hasPassword()) {
@@ -160,9 +186,7 @@ public class MainActivity extends BaseNavigatActivity implements LockMainContrac
                 });
             }
         }
-        if (requestCode == 10) {
 
-        }
     }
 
 

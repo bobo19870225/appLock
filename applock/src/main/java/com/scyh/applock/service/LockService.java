@@ -3,8 +3,6 @@ package com.scyh.applock.service;
 import android.app.ActivityManager;
 import android.app.IntentService;
 import android.app.Notification;
-import android.app.PendingIntent;
-import android.app.Service;
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
@@ -22,7 +20,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.scyh.applock.AppConstants;
 import com.scyh.applock.R;
@@ -75,7 +72,7 @@ public class LockService extends IntentService {
 			switch (msg.what) {
 			case 4:
 
-				Logger.e("s", "hander rece----------------------msg");
+//				Logger.e("s", "hander rece----------------------msg");
 				String pkg = msg.obj.toString();
 				passwordLock(pkg);
 				break;
@@ -152,7 +149,7 @@ public class LockService extends IntentService {
 		// TODO Auto-generated method stub
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {//如果API大于18，需要弹出一个可见通知
 			Notification.Builder builder = new Notification.Builder(this);
-			builder.setSmallIcon(R.mipmap.ic_launcher);
+			builder.setSmallIcon(R.drawable.ic_launcher);
 			builder.setContentTitle("应用锁");
 			builder.setContentText("应用锁持续为您守护...");
 			startForeground(NOTICE_ID,builder.build());
@@ -169,7 +166,11 @@ public class LockService extends IntentService {
 //				.setContentIntent(notificationIntent)
 //				.build();
 //		startForeground(123456, noti);
-		recycleThread.start();
+		Thread.State state = recycleThread.getState();
+//		Log.e("recycleThread", state.toString());
+		if (state == Thread.State.NEW) {
+			recycleThread.start();
+		}
         return START_STICKY;
 	}
 
@@ -495,11 +496,11 @@ public class LockService extends IntentService {
 
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
-			  Toast.makeText(LockService.this, "远程服务killed", Toast.LENGTH_SHORT).show();
+//			  Toast.makeText(LockService.this, "远程服务killed", Toast.LENGTH_SHORT).show();
 			//开启远程服务
-			LockService.this.startService(new Intent(LockService.this, RomoteService.class));
+//			LockService.this.startService(new Intent(LockService.this, RomoteService.class));
 			//绑定远程服务
-			LockService.this.bindService(new Intent(LockService.this, RomoteService.class), conn, Context.BIND_IMPORTANT);
+//			LockService.this.bindService(new Intent(LockService.this, RomoteService.class), conn, Context.BIND_IMPORTANT);
 		}
 	}
 }
