@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.widget.Toast;
 
 public class RomoteService extends Service {
     MyConn conn;
@@ -29,7 +30,7 @@ public class RomoteService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-      //  Toast.makeText(this, " 远程服务started", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, " 远程服务started", Toast.LENGTH_SHORT).show();
         this.bindService(new Intent(this, LockService.class), conn, Context.BIND_IMPORTANT);
 
         return START_STICKY;
@@ -52,7 +53,7 @@ public class RomoteService extends Service {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-          //  Toast.makeText(RomoteService.this, "本地服务killed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RomoteService.this, "本地服务killed", Toast.LENGTH_SHORT).show();
 
             //开启本地服务
             RomoteService.this.startService(new Intent(RomoteService.this, LockService.class));

@@ -22,13 +22,13 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.scyh.applock.AppConstants;
 import com.scyh.applock.R;
 import com.scyh.applock.db.CommLockInfoManager;
 import com.scyh.applock.task.RecycleTask;
 import com.scyh.applock.ui.activity.GestureUnlockAppActivity;
-import com.scyh.applock.ui.activity.MainActivity;
 import com.scyh.applock.utils.Logger;
 import com.scyh.applock.utils.ServiceUtils;
 import com.scyh.applock.utils.SpUtil;
@@ -42,7 +42,7 @@ public class LockService extends IntentService {
 	}
 
 	private static LockService instance;
-
+	public static final int NOTICE_ID = 100;
 	public synchronized static LockService getInstance() {
 		return instance;
 	}
@@ -94,14 +94,6 @@ public class LockService extends IntentService {
 		}
 	}
 
-//	LauncherServiceBroadcastReceiver mScreenStatusReceiver;
-//	private void registSreenStatusReceiver() {  
-//	    mScreenStatusReceiver = new LauncherServiceBroadcastReceiver();    
-//	    IntentFilter screenStatusIF = new IntentFilter();    
-//	    screenStatusIF.addAction(Intent.ACTION_SCREEN_ON);    
-//	    screenStatusIF.addAction(Intent.ACTION_SCREEN_OFF);    
-//	    registerReceiver(mScreenStatusReceiver, screenStatusIF);    
-//	} 
 
 	@Override
 	public void onCreate() {
@@ -158,38 +150,29 @@ public class LockService extends IntentService {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO Auto-generated method stub
-
-		Logger.e("fxq", "---service------onStartCommand");
-		flags=Service.START_STICKY;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {//如果API大于18，需要弹出一个可见通知
+			Notification.Builder builder = new Notification.Builder(this);
+			builder.setSmallIcon(R.mipmap.ic_launcher);
+			builder.setContentTitle("应用锁");
+			builder.setContentText("应用锁持续为您守护...");
+			startForeground(NOTICE_ID,builder.build());
+		}else{
+			startForeground(NOTICE_ID,new Notification());
+		}
+//		Logger.e("fxq", "---service------onStartCommand");
+//		flags=Service.START_STICKY;
 //		PendingIntent notificationIntent = PendingIntent.getActivity(this, 0, intent, 0);
-//		    Notification noti = new Notification.Builder(this)
-//		                .setContentTitle("Title")
-//		                .setContentText("Message")
-//		                .setSmallIcon(R.drawable.ic_launcher)
-//		                .setContentIntent(notificationIntent)
-//		                .build();
-//		    startForeground(123456,noti);
+//		Notification noti = new Notification.Builder(this)
+//				.setContentTitle("应用锁")
+//				.setContentText("应用锁持续为您守护...")
+//				.setSmallIcon(R.drawable.ic_launcher)
+//				.setContentIntent(notificationIntent)
+//				.build();
+//		startForeground(123456, noti);
 		recycleThread.start();
-		
-		Notification notification = new Notification(R.drawable.ic_launcher, "应用锁已经启动", System.currentTimeMillis());  
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-//             notification.setLatestEventInfo(this, "应用锁", "应用锁持续为您守护...", pendingIntent);
-             startForeground(1, notification);
-//		return super.onStartCommand(intent, flags, startId);
-		
-//		JobInfo.Builder mJobBulider = new JobInfo.Builder(  
-//                JobWakeUpId,new ComponentName(this,JobWakeUpService.class));  
-//        //设置轮寻时间  
-//        mJobBulider.setPeriodic(2000);  
-//        JobScheduler mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);  
-//        mJobScheduler.schedule(mJobBulider.build());  
-        return START_STICKY;  
+        return START_STICKY;
 	}
 
-	// public void startRecycle(){
-	// recycleThread.start();
-	// }
 
 	public static String current_launcher="com.android.gallery3d";
 //	class RecycleLauncher implements Runnable {
@@ -512,7 +495,7 @@ public class LockService extends IntentService {
 
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
-			//  Toast.makeText(LocalService.this, "远程服务killed", Toast.LENGTH_SHORT).show();
+			  Toast.makeText(LockService.this, "远程服务killed", Toast.LENGTH_SHORT).show();
 			//开启远程服务
 			LockService.this.startService(new Intent(LockService.this, RomoteService.class));
 			//绑定远程服务

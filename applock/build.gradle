@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 25
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.scyh.applock"
         minSdkVersion 23
-        targetSdkVersion 26
+        targetSdkVersion 25
     }
 
     buildTypes {
@@ -16,7 +16,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
-
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group =='com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '25.4.0'//默认使用
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -24,11 +33,11 @@ dependencies {
 //    compile files('libs/android-support-v7-recyclerview.jar')
 //    compile files('libs/fastjson-1.1.33.jar')
     compile files('libs/litepal-1.6.1.jar')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:25.4.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:design:26.1.0'
-    implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:design:25.4.0'
+    implementation 'com.android.support:support-v4:25.4.0'
+    implementation 'com.android.support:cardview-v7:25.4.0'
 
     implementation files('libs/scyh_account-debug.aar')
 

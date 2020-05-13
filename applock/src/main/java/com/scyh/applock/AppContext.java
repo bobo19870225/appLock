@@ -10,6 +10,8 @@ import com.scyh.applock.utils.SpUtil;
 
 import org.litepal.LitePalApplication;
 
+import cn.gz3create.scyh_account.ScyhAccountLib;
+
 public class AppContext extends LitePalApplication {
 
     private static AppContext instance;
@@ -48,7 +50,7 @@ public class AppContext extends LitePalApplication {
         super.onCreate();
         AppContext.instance = this;
         startService(new Intent(this, LoadAppListService.class));
-        MobSDK.init(this);
+        ScyhAccountLib.initLib(this);
 
         SpUtil.getInstance().init(this);
         SpUtil.getInstance().putBoolean("need_recycle", true);
