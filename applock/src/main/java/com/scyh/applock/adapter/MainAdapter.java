@@ -53,12 +53,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             mLockInfos.add(info);
             notifyItemInserted(i);
         }
-//        for(CommLockInfo info:lockInfos){
-//        	mLockInfos.add(info);
-//        	 notifyDataSetChanged();
-//        	 notifyItemInserted(position);
-//        }
-//        mLockInfos.addAll(lockInfos);
 
     }
 
@@ -90,7 +84,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         mAppIcon.setImageDrawable(packageManager.getApplicationIcon(appInfo));
     }
 
-    public void changeItemLockStatus(CheckBox checkBox, CommLockInfo info, int position) {
+    private void changeItemLockStatus(CheckBox checkBox, CommLockInfo info, int position) {
         if (checkBox.isChecked()) {
             if (!VipUtils.validVip()) {
                 if (mLockInfoManager.getLockedCount() >= 1) {
@@ -132,12 +126,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         return mLockInfos.size();
     }
 
-    public class MainViewHolder extends RecyclerView.ViewHolder {
+    static class MainViewHolder extends RecyclerView.ViewHolder {
         private ImageView mAppIcon;
         private TextView mAppName;
         private CheckBox mSwitchCompat;
 
-        public MainViewHolder(View itemView) {
+        MainViewHolder(View itemView) {
             super(itemView);
             mAppIcon = (ImageView) itemView.findViewById(R.id.app_icon);
             mAppName = (TextView) itemView.findViewById(R.id.app_name);
