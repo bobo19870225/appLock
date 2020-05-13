@@ -1,23 +1,7 @@
 package com.scyh.applock.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.scyh.applock.R;
-import com.scyh.applock.db.CommLockInfoManager;
-import com.scyh.applock.model.CommLockInfo;
-import com.scyh.applock.ui.activity.GestureCreateActivity;
-import com.scyh.applock.ui.activity.PayActivity;
-import com.scyh.applock.ui.activity.SetActivity;
-import com.scyh.applock.ui.view.PPWNearBy;
-import com.scyh.applock.utils.AppUtil;
-import com.scyh.applock.utils.LockPatternUtils;
-import com.scyh.applock.utils.ServiceUtils;
-import com.scyh.applock.utils.VipUtils;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,13 +13,28 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.scyh.applock.R;
+import com.scyh.applock.db.CommLockInfoManager;
+import com.scyh.applock.model.CommLockInfo;
+import com.scyh.applock.ui.activity.MainActivity;
+import com.scyh.applock.ui.view.PPWNearBy;
+import com.scyh.applock.utils.AppUtil;
+import com.scyh.applock.utils.LockPatternUtils;
+import com.scyh.applock.utils.VipUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.gz3create.scyh_account.ScyhAccountLib;
+import cn.gz3create.scyh_account.utils.LibProduct;
+
 /**
  * Created by xian on 2017/3/1.
  */
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder> {
 
-    private List<CommLockInfo> mLockInfos = new ArrayList<CommLockInfo>();
+    private List<CommLockInfo> mLockInfos = new ArrayList<>();
     private Context mContext;
     private PackageManager packageManager;
     private CommLockInfoManager mLockInfoManager;
@@ -49,10 +48,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     public void setLockInfos(List<CommLockInfo> lockInfos) {
         mLockInfos.clear();
         CommLockInfo info;
-        for(int i=0;i<lockInfos.size();i++){
-        	info=lockInfos.get(i);
-        	mLockInfos.add(info);
-        	 notifyItemInserted(i);
+        for (int i = 0; i < lockInfos.size(); i++) {
+            info = lockInfos.get(i);
+            mLockInfos.add(info);
+            notifyItemInserted(i);
         }
 //        for(CommLockInfo info:lockInfos){
 //        	mLockInfos.add(info);
@@ -60,7 +59,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 //        	 notifyItemInserted(position);
 //        }
 //        mLockInfos.addAll(lockInfos);
-       
+
     }
 
     @Override
@@ -92,34 +91,35 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     }
 
     public void changeItemLockStatus(CheckBox checkBox, CommLockInfo info, int position) {
-    	if(checkBox.isChecked()){
-    		if(!VipUtils.validVip()){
-        		if(mLockInfoManager.getLockedCount()>=1){
-        			checkBox.setChecked(!checkBox.isChecked());
-//        			AppConfig.a((Activity)mContext, checkBox, "02");
-        			PPWNearBy ppv=new PPWNearBy((Activity)mContext,new OnClickListener() {
-						
-						@Override
-						public void onClick(View arg0) {
-							Intent intent=new Intent(mContext,PayActivity.class);
-							mContext.startActivity(intent);
-						}
-					});
-        			ppv.showAsDropDown(checkBox);
-        			return ;
-        		}
-        	}
-    	}
         if (checkBox.isChecked()) {
-        	LockPatternUtils util = new LockPatternUtils(mContext);
-        	if(!util.hasPassword()){
-        		AppUtil.toast("请先设置解锁密码");
-        		
-        	}else{
-        		info.setLocked(true);
+            if (!VipUtils.validVip()) {
+                if (mLockInfoManager.getLockedCount() >= 1) {
+                    checkBox.setChecked(!checkBox.isChecked());
+//        			AppConfig.a((Activity)mContext, checkBox, "02");
+                    PPWNearBy ppv = new PPWNearBy((Activity) mContext, new OnClickListener() {
+
+                        @Override
+                        public void onClick(View arg0) {
+                            ScyhAccountLib.getInstance().userCenter((MainActivity) mContext, 111, LibProduct.AppLock.APPID);
+//                            Intent intent = new Intent(mContext, PayActivity.class);
+//                            mContext.startActivity(intent);
+                        }
+                    });
+                    ppv.showAsDropDown(checkBox);
+                    return;
+                }
+            }
+        }
+        if (checkBox.isChecked()) {
+            LockPatternUtils util = new LockPatternUtils(mContext);
+            if (!util.hasPassword()) {
+                AppUtil.toast("请先设置解锁密码");
+
+            } else {
+                info.setLocked(true);
                 mLockInfoManager.lockCommApplication(info.getPackageName());
-        	}
-            
+            }
+
         } else {
             info.setLocked(false);
             mLockInfoManager.unlockCommApplication(info.getPackageName());
