@@ -1,14 +1,25 @@
 package com.scyh.applock.ui.activity;
 
-import java.security.PrivilegedActionException;
-import java.util.List;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
+import android.widget.Toast;
 
 import com.scyh.applock.AppConstants;
 import com.scyh.applock.AppManager;
 import com.scyh.applock.R;
 import com.scyh.applock.adapter.MainAdapter;
 import com.scyh.applock.model.CommLockInfo;
-import com.scyh.applock.service.LocalService;
 import com.scyh.applock.service.LockService;
 import com.scyh.applock.service.RomoteService;
 import com.scyh.applock.task.LockMainContract;
@@ -16,25 +27,11 @@ import com.scyh.applock.task.LockMainPresenter;
 import com.scyh.applock.ui.dialog.DialogPermission;
 import com.scyh.applock.ui.dialog.RefusedDialog;
 import com.scyh.applock.ui.dialog.RotationDialog;
-import com.scyh.applock.utils.AppUtil;
 import com.scyh.applock.utils.LockPatternUtils;
 import com.scyh.applock.utils.LockUtil;
-import com.scyh.applock.utils.ServiceUtils;
 import com.scyh.applock.utils.SpUtil;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.provider.Settings;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.Window;
-import android.widget.Toast;
+import java.util.List;
 
 public class MainActivity extends BaseNavigatActivity implements LockMainContract.View, View.OnClickListener {
 
@@ -51,6 +48,7 @@ public class MainActivity extends BaseNavigatActivity implements LockMainContrac
 	public static  int count = 0;
 	private boolean judge = true;
 	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,7 +81,11 @@ public class MainActivity extends BaseNavigatActivity implements LockMainContrac
 		}
 //		ServiceUtils.startLockService(this);
 		if(sp.getBoolean(TAG_SERVICE_APP, false)){
-			startService(new Intent(this,LocalService.class));	
+			if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+				startForegroundService(new Intent(this, LockService.class));
+			}else {
+				startService(new Intent(this, LockService.class));
+			}
 		}
 //		startService(new Intent(this,LeftService.class));
 		startService(new Intent(this,RomoteService.class));
@@ -137,7 +139,7 @@ public class MainActivity extends BaseNavigatActivity implements LockMainContrac
 			if (LockUtil.isStatAccessPermissionSet(this)) {
 				LockPatternUtils util  = new LockPatternUtils(getApplicationContext());
 				if(!util.hasPassword()){
-					Toast.makeText(getApplicationContext(), "授权成功，开始设置密码", 0).show();
+					Toast.makeText(getApplicationContext(), "授权成功，开始设置密码", Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(MainActivity.this,SetActivity.class);
 					intent.putExtra("permission", true);
 					startActivityForResult(intent, 10);

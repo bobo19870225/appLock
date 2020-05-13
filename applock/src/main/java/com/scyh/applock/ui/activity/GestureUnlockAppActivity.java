@@ -1,6 +1,11 @@
 package com.scyh.applock.ui.activity;
 
-import java.util.List;
+import android.app.ActivityManager;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.KeyEvent;
+import android.view.Window;
 
 import com.scyh.applock.AppConstants;
 import com.scyh.applock.R;
@@ -8,17 +13,11 @@ import com.scyh.applock.model.LockStage;
 import com.scyh.applock.service.LockService;
 import com.scyh.applock.ui.view.LockPatternView;
 import com.scyh.applock.ui.view.LockPatternViewPattern;
-import com.scyh.applock.utils.AppUtil;
 import com.scyh.applock.utils.LockPatternUtils;
 import com.scyh.applock.utils.LockUtil;
 import com.scyh.applock.utils.ServiceUtils;
 
-import android.app.ActivityManager;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.KeyEvent;
-import android.view.Window;
+import java.util.List;
 
 /**
  * Created by xian on 2017/2/17.
@@ -84,7 +83,7 @@ public class GestureUnlockAppActivity extends BaseNavigatActivity {
                     intent.putExtra(LockService.LOCK_SERVICE_LASTAPP, topkg);
                     sendBroadcast(intent);
 					finish();
-					if(getIntent().getStringExtra("Main").equals("only")){
+					if (("only").equals(getIntent().getStringExtra("Main"))) {
 						MainActivity.count = 1;
 						finish();
 					}

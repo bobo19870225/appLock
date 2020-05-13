@@ -1,14 +1,14 @@
 <component name="libraryTable">
   <library name="Gradle: __local_aars__:./applock/libs/scyh_account-debug.aar:unspecified@jar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6498eebdc7dbf86a22724fd577e58c1f/scyh_account-debug/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/780b068e814368e176987a9289c1dbbd/scyh_account-debug/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6498eebdc7dbf86a22724fd577e58c1f/scyh_account-debug/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6498eebdc7dbf86a22724fd577e58c1f/scyh_account-debug/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6498eebdc7dbf86a22724fd577e58c1f/scyh_account-debug/jars/libs/traffic-client-v6.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6498eebdc7dbf86a22724fd577e58c1f/scyh_account-debug/jars/libs/alipaySdk-20180316.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6498eebdc7dbf86a22724fd577e58c1f/scyh_account-debug/jars/libs/security-v6.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/780b068e814368e176987a9289c1dbbd/scyh_account-debug/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/780b068e814368e176987a9289c1dbbd/scyh_account-debug/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/780b068e814368e176987a9289c1dbbd/scyh_account-debug/jars/libs/traffic-client-v6.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/780b068e814368e176987a9289c1dbbd/scyh_account-debug/jars/libs/alipaySdk-20180316.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/780b068e814368e176987a9289c1dbbd/scyh_account-debug/jars/libs/security-v6.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
