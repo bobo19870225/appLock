@@ -15,7 +15,7 @@ public class AppStart extends BaseActivity {
 
 //		Intent intet = new Intent(this, LoginActivity.class);
 //		startActivity(intent);
-		ScyhAccountLib.getInstance().login(this, 334, LibProduct.AppLock.APPID);
+		ScyhAccountLib.getInstance().login(this, 334);
 //		fingerUtils = new LockPatternUtils(this);
 //		if (fingerUtils.savedPatternExists()) {
 //			Intent intent = new Intent(this, LoginActivity.class);

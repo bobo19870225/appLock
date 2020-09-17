@@ -4,13 +4,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 
-import com.mob.MobSDK;
 import com.scyh.applock.service.LoadAppListService;
+import com.scyh.applock.utils.AppConfig;
 import com.scyh.applock.utils.SpUtil;
 
 import org.litepal.LitePalApplication;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import cn.gz3create.scyh_account.ScyhAccountLib;
+import cn.gz3create.scyh_account.utils.LibProduct;
 
 public class AppContext extends LitePalApplication {
 
@@ -50,8 +54,9 @@ public class AppContext extends LitePalApplication {
         super.onCreate();
         AppContext.instance = this;
         startService(new Intent(this, LoadAppListService.class));
-        ScyhAccountLib.initLib(this);
-
+        Map<String, String> appKey = new HashMap<>();
+        appKey.put("UM", AppConfig.UM_APP_KEY);
+        ScyhAccountLib.initLib(this, LibProduct.AppLock.APPID, appKey);
         SpUtil.getInstance().init(this);
         SpUtil.getInstance().putBoolean("need_recycle", true);
     }

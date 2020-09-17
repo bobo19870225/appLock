@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -94,7 +94,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
                         @Override
                         public void onClick(View arg0) {
-                            ScyhAccountLib.getInstance().userCenter((MainActivity) mContext, 111, LibProduct.AppLock.APPID);
+                            ScyhAccountLib.getInstance().userCenter((MainActivity) mContext, 111);
 //                            Intent intent = new Intent(mContext, PayActivity.class);
 //                            mContext.startActivity(intent);
                         }

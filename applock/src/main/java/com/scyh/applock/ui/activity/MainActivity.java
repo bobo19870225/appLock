@@ -8,8 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -21,7 +21,6 @@ import com.scyh.applock.R;
 import com.scyh.applock.adapter.MainAdapter;
 import com.scyh.applock.model.CommLockInfo;
 import com.scyh.applock.service.LockService;
-import com.scyh.applock.service.RomoteService;
 import com.scyh.applock.task.LockMainContract;
 import com.scyh.applock.task.LockMainPresenter;
 import com.scyh.applock.ui.dialog.DialogPermission;
@@ -75,7 +74,7 @@ public class MainActivity extends BaseNavigatActivity implements LockMainContrac
         //displayRgtLftMenuOn(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         setTitleBar(R.string.title_bar_main);
         sp = getSharedPreferences("applock", Context.MODE_PRIVATE);
-        count = 1;
+             count = 1;
 
         dialog = RotationDialog.newInstance(false, "请稍后...");
         dialog.show(getFragmentManager(), "");
