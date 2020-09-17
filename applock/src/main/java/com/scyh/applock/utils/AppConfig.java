@@ -28,7 +28,7 @@ public class AppConfig {
     public static final String SERVICE_REGISTER = SERVICE_DEFAULT + "/applock/reg";
     public static final String SERVICE_MODIFY = SERVICE_DEFAULT + "/applock/modifypwd";
     //    友盟 Appkey：5f61d308b473963242a06c2c
-    public static final String UM_APP_KEY = "5f61d308b473963242a06c2c";
+    public static final String UM_APP_KEY = "5f6320e5b473963242a1cd5e";
 
     public static final String SP_KEY_CACHE_LOGIN_USERNAME = "cache_username";
     public static final String SP_KEY_CACHE_LOGIN_ = "";
