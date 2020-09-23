@@ -18,13 +18,8 @@ public class RightService extends Service {
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
-			case 1:
+			if (msg.what == 1) {
 				startServiceLeft();
-				break;
-
-			default:
-				break;
 			}
 
 		};
@@ -83,7 +78,7 @@ public class RightService extends Service {
 
 		boolean isRun = ServiceUtils.isServiceWork(RightService.this, "com.jj.applock.service.LeftService");
 		ServiceUtils.startLockService(this);
-		if (isRun == false) {
+		if (!isRun) {
 			try {
 				cytual.startService();
 			} catch (RemoteException e) {

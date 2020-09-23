@@ -55,7 +55,6 @@ public class LockService extends IntentService {
 	private String lastUnlockPackageName = ""; // 最后解锁的程序包名
 
 	private boolean lockState;
-	private MyConn conn;
 	private MyBinder binder;
 
 	private ServiceReceiver mServiceReceiver;
@@ -95,7 +94,7 @@ public class LockService extends IntentService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		conn = new MyConn();
+		MyConn conn = new MyConn();
 		instance = this;
 		lockState = SpUtil.getInstance().getBoolean(AppConstants.LOCK_STATE);
 		lockState = true;

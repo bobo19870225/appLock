@@ -1,10 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: cn.sharesdk:ShareSDK:3.8.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/31f79c0be9f8e1d48b971adf35d57317/jetified-ShareSDK-3.8.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/31f79c0be9f8e1d48b971adf35d57317/jetified-ShareSDK-3.8.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/31f79c0be9f8e1d48b971adf35d57317/jetified-ShareSDK-3.8.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/31f79c0be9f8e1d48b971adf35d57317/jetified-ShareSDK-3.8.0/jars/libs/ShareSDK-Core-3.8.0.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dae854d71529b4a10752cfe359f40c1a/jetified-ShareSDK-3.8.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dae854d71529b4a10752cfe359f40c1a/jetified-ShareSDK-3.8.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dae854d71529b4a10752cfe359f40c1a/jetified-ShareSDK-3.8.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dae854d71529b4a10752cfe359f40c1a/jetified-ShareSDK-3.8.0/jars/libs/ShareSDK-Core-3.8.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

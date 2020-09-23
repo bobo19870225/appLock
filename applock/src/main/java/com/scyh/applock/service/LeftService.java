@@ -17,13 +17,8 @@ public class LeftService extends Service {
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
-			case 1:
+			if (msg.what == 1) {
 				startServiceRight();
-				break;
-
-			default:
-				break;
 			}
 
 		};

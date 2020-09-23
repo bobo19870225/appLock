@@ -92,8 +92,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: ./applock/libs/libammsdk.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./applock/libs/litepal-1.6.1.jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.mob:MobTools:2020.0902.2022@jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.mob:MobCommons:2020.0910.1726@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobToolsTA:2020.0902.2022@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobCommonsTA:2020.0910.1726@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.mob:MobGUI:2019.0306.1850@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.mob:SDKWrapper:2018.0801.1824@jar" level="project" />
     <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-SinaWeibo:3.8.0@jar" level="project" />
@@ -113,7 +113,7 @@
     <orderEntry type="library" name="Gradle: cn.smssdk:SMSSDK:3.6.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: cn.smssdk:ShortMessageSDKGUI:3.6.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.mob:MobGuard:1.0.8@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.mob:MobApm:1.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobApm:1.1.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK:3.8.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: cn.sharesdk:OneKeyShare:3.8.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout:2.0.1@aar" level="project" />
