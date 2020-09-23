@@ -94,7 +94,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
                         @Override
                         public void onClick(View arg0) {
-                            ScyhAccountLib.getInstance().userCenter((MainActivity) mContext, 111, LibProduct.AppLock.APPID);
+                            ScyhAccountLib.getInstance().userCenter((MainActivity) mContext, 111);
 //                            Intent intent = new Intent(mContext, PayActivity.class);
 //                            mContext.startActivity(intent);
                         }

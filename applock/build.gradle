@@ -16,10 +16,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             def requested = details.requested
-            if (requested.group =='com.android.support') {
+            if (requested.group == 'com.android.support') {
                 if (!requested.name.startsWith("multidex")) {
                     details.useVersion '25.4.0'//默认使用
                 }
@@ -71,19 +75,22 @@ MobSDK {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
-//    compile files('libs/android-support-v7-recyclerview.jar')
-//    compile files('libs/fastjson-1.1.33.jar')
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
+//    用户模块
+    implementation files('libs/scyh_account-release.aar')
+    implementation 'com.github.open-android:RoundedImageView:v1.0.0'
+    implementation 'com.alibaba:fastjson:1.2.73'
+    implementation 'com.github.wildma:PictureSelector:1.2.0'
+// 友盟统计SDK
+    implementation 'com.umeng.umsdk:asms:1.1.3' // asms包依赖(必选)
+    implementation 'com.umeng.umsdk:crash:0.0.5' // native crash包依赖(必选)
+
     compile files('libs/litepal-1.6.1.jar')
     implementation 'com.android.support:appcompat-v7:25.4.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:design:25.4.0'
     implementation 'com.android.support:support-v4:25.4.0'
     implementation 'com.android.support:cardview-v7:25.4.0'
-
-    implementation files('libs/scyh_account-debug.aar')
-
     implementation 'com.github.open-android:RoundedImageView:v1.0.0'
     implementation 'com.zhihu.android:matisse:0.5.0-beta3'
-    implementation 'com.alibaba:fastjson:1.2.61'
 }

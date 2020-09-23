@@ -4,18 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import cn.gz3create.scyh_account.ScyhAccountLib;
-import cn.gz3create.scyh_account.utils.LibProduct;
 
 public class AppStart extends BaseActivity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
 
 //		Intent intet = new Intent(this, LoginActivity.class);
 //		startActivity(intent);
-		ScyhAccountLib.getInstance().login(this, 334, LibProduct.AppLock.APPID);
+        ScyhAccountLib.getInstance().login(this, 334);
 //		fingerUtils = new LockPatternUtils(this);
 //		if (fingerUtils.savedPatternExists()) {
 //			Intent intent = new Intent(this, LoginActivity.class);
@@ -24,24 +23,24 @@ public class AppStart extends BaseActivity {
 //			Intent intent = new Intent(this, GestureCreateActivity.class);
 //			startActivity(intent);
 //		}
-	}
+    }
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		ScyhAccountLib.getInstance().onLoginCallback(new ScyhAccountLib.ILoginCallback() {
-			@Override
-			public void success() {
-				Intent intet1 = new Intent(AppStart.this, MainActivity.class);
-				startActivity(intet1);
-				AppStart.this.finish();
-			}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ScyhAccountLib.getInstance().onLoginCallback(new ScyhAccountLib.ILoginCallback() {
+            @Override
+            public void success() {
+                Intent intet1 = new Intent(AppStart.this, MainActivity.class);
+                startActivity(intet1);
+                AppStart.this.finish();
+            }
 
-			@Override
-			public void failed() {
+            @Override
+            public void failed() {
 
-			}
-		}, 334, requestCode, resultCode, data);
+            }
+        }, 334, requestCode, resultCode, data);
 
-	}
+    }
 }

@@ -82,7 +82,7 @@ public class SetActivity extends BaseNavigatActivity {
         findViewById(R.id.rl_user).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ScyhAccountLib.getInstance().userCenter(SetActivity.this, 111, LibProduct.AppLock.APPID);
+                ScyhAccountLib.getInstance().userCenter(SetActivity.this, 111);
             }
         });
         if (VipUtils.validVip()) {
