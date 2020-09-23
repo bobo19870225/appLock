@@ -181,7 +181,7 @@ public class SetActivity extends BaseNavigatActivity {
         else {
             Intent intent = new Intent(SetActivity.this, LockService.class);
             stopService(intent);
-            sp.edit().putBoolean(TAG_SERVICE_APP, false).commit();
+            sp.edit().putBoolean(TAG_SERVICE_APP, false).apply();
             tv_service_open.setText("服务未开启,请开启服务");
             cb.setChecked(false);
         }

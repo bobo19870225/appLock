@@ -3,6 +3,7 @@ package com.scyh.applock;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 
 import com.scyh.applock.service.LoadAppListService;
 import com.scyh.applock.utils.AppConfig;
@@ -53,7 +54,14 @@ public class AppContext extends LitePalApplication {
     public void onCreate() {
         super.onCreate();
         AppContext.instance = this;
-        startService(new Intent(this, LoadAppListService.class));
+        //安卓8.0以上禁止后台启动服务，所以要设为前台服务
+        Intent i = new Intent(getApplicationContext(), LoadAppListService.class);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(i);
+        } else {
+            startService(i);
+        }
         Map<String, String> appKey = new HashMap<>();
         appKey.put("UM", AppConfig.UM_APP_KEY);
         ScyhAccountLib.initLib(this, LibProduct.AppLock.APPID, appKey);

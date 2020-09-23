@@ -8,8 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -31,6 +29,9 @@ import com.scyh.applock.utils.LockUtil;
 import com.scyh.applock.utils.SpUtil;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends BaseNavigatActivity implements LockMainContract.View, View.OnClickListener {
 
@@ -74,7 +75,7 @@ public class MainActivity extends BaseNavigatActivity implements LockMainContrac
         //displayRgtLftMenuOn(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         setTitleBar(R.string.title_bar_main);
         sp = getSharedPreferences("applock", Context.MODE_PRIVATE);
-             count = 1;
+        count = 1;
 
         dialog = RotationDialog.newInstance(false, "请稍后...");
         dialog.show(getFragmentManager(), "");
@@ -97,7 +98,14 @@ public class MainActivity extends BaseNavigatActivity implements LockMainContrac
 //			if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
 //				startForegroundService(new Intent(this, LockService.class));
 //			}else {
-            startService(new Intent(this, LockService.class));
+//            startService(new Intent(this, LockService.class));
+            //安卓8.0以上禁止后台启动服务，所以要设为前台服务
+            Intent i = new Intent(getApplicationContext(), LockService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(i);
+            } else {
+                startService(i);
+            }
 //			}
         }
 //		startService(new Intent(this,LeftService.class));
