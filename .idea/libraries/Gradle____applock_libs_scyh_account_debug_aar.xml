@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: ./applock/libs/scyh_account-debug.aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/825c9a81e50974ddc608c6f67ed14b3f/scyh_account-debug/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/825c9a81e50974ddc608c6f67ed14b3f/scyh_account-debug/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/825c9a81e50974ddc608c6f67ed14b3f/scyh_account-debug/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/825c9a81e50974ddc608c6f67ed14b3f/scyh_account-debug/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/825c9a81e50974ddc608c6f67ed14b3f/scyh_account-debug/jars/libs/alipaySdk-20180316.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/825c9a81e50974ddc608c6f67ed14b3f/scyh_account-debug/jars/libs/security-v6.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/825c9a81e50974ddc608c6f67ed14b3f/scyh_account-debug/jars/libs/traffic-client-v6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

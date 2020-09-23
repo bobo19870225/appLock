@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: __local_aars__:C.\Users\scyh012\AndroidStudioProjects\appLock\applock\libs\libammsdk.jar:unspecified@jar">
+  <library name="Gradle: ./applock/libs/libammsdk.jar">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/applock/libs/libammsdk.jar!/" />
     </CLASSES>
